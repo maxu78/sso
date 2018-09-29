@@ -1,0 +1,77 @@
+<!DOCTYPE mapper
+        PUBLIC "-//resources.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mx.sso.dao.UserDao">
+
+    <select id="getAllUser" resultType="com.mx.sso.pojo.User">
+        SELECT id, username, password, ipaddress, remark1, remark2, remark3, remark4, remark5 FROM TB_USER WHERE 1=1
+        <if test="id != null and id != ''">
+            AND id = #{id}
+        </if>
+        <if test="username != null and username != ''">
+            AND username like concat('%', #{username}, '%')
+        </if>
+        <if test="password != null and password != ''">
+            AND password = #{password}
+        </if>
+        <if test="ipAddress != null and ipAddress != ''">
+            AND ipaddress = #{ipAddress}
+        </if>
+        <if test="remark1 != null and remark1 != ''">
+            AND remark1 = #{remark1}
+        </if>
+        <if test="remark2 != null and remark2 != ''">
+            AND remark2 = #{remark2}
+        </if>
+        <if test="remark3 != null and remark3 != ''">
+            AND remark3 = #{remark3}
+        </if>
+        <if test="remark4 != null and remark4 != ''">
+            AND remark4 = #{remark4}
+        </if>
+        <if test="remark5 != null and remark5 != ''">
+            AND remark5 = #{remark5}
+        </if>
+    </select>
+
+    <insert id="addUser">
+        INSERT INTO TB_USER (username, password, ipaddress, remark1, remark2, remark3, remark4, remark5) VALUES (#{username}, #{password}, #{ipAddress}, #{remark1}, #{remark2}, #{remark3}, #{remark4}, #{remark5})
+    </insert>
+
+    <update id="updateUser">
+        UPDATE TB_USER
+        <set>
+            <if test="username != null and username != ''">
+                username =#{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="ipAddress != null and ipAddress != ''">
+                ipaddress = #{ipAddress},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark2 = #{remark2},
+            </if>
+            <if test="remark3 != null and remark3 != ''">
+                remark3 = #{remark3},
+            </if>
+            <if test="remark4 != null and remark4 != ''">
+                remark4 = #{remark4},
+            </if>
+            <if test="remark5 != null and remark5 != ''">
+                remark5 = #{remark5},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM TB_USER WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /sso
+
+#数据库连接池配置
+spring:
+  application:
+    name: SSO
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClass: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF8&
+      username: root
+      password: root
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 20000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    timeout: 2000
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 1000
+        max-idle: 5
+        min-idle: 0
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+# 自定义配置
+session:
+  expiredTime: 30
+  expiredUnit: min
+
+cookie:
+  key: sid
+
+jwt:
+  head: token
+  secret: 123456
+  expiration: 3600
